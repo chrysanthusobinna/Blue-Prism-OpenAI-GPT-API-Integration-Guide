@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<bpr:release xmlns:bpr="http://www.blueprism.co.uk/product/release">
+    <bpr:name>Blue Prism – OpenAI GPT API Integration</bpr:name>
+    <bpr:release-notes>Blue Prism – OpenAI GPT API Integration </bpr:release-notes>
+    <bpr:created>2025-05-30 14:50:29Z</bpr:created>
+    <bpr:package-id>1006</bpr:package-id>
+    <bpr:package-name>OpenAI - Blue Prism - Santhus</bpr:package-name>
+    <bpr:user-created-by>admin</bpr:user-created-by>
+    <bpr:contents count="4">
+        <process id="73c2b87b-d7bc-4b19-ad7a-035987374e69" name="Test OpenAI" xmlns="http://www.blueprism.co.uk/product/process"><process name="Test OpenAI" version="1.0" bpversion="7.3.1.11999" narrative="" byrefcollection="true" processrunningmessage="" disableversioning="false"><view><camerax>0</camerax><cameray>42</cameray><zoom version="2">1.25</zoom></view><preconditions /><endpoint narrative="" /><stage stageid="6a19aadf-37b6-473a-a8d5-cf34b3271216" name="Start" type="Start"><display x="15" y="-105" /><onsuccess>74ed7ca1-8c4f-4b3c-8ab2-6acc7711fd7e</onsuccess></stage><stage stageid="c00688ab-dfeb-4fa8-9796-0b58932fcb13" name="End" type="End"><display x="15" y="90" /></stage><stage stageid="8d78dc97-2c67-40f7-bfa6-bc9adba12869" name="Stage1" type="ProcessInfo"><display x="-195" y="-105" w="150" h="90" /></stage><stage stageid="b85ad690-a8a5-4284-b0d4-99615cfa87ea" name="Prompt" type="Data"><loginhibit onsuccess="true" /><display x="180" y="-60" /><datatype>text</datatype><initialvalue xml:space="preserve">Explain low-code technology</initialvalue><private /><alwaysinit /></stage><stage stageid="74ed7ca1-8c4f-4b3c-8ab2-6acc7711fd7e" name="Call OpenAI" type="Action"><loginhibit onsuccess="true" /><display x="15" y="-15" /><inputs><input type="text" name="Prompt" friendlyname="Prompt" expr="[Prompt]" /><input type="text" name="Bearer Token Authentication Credential Name" friendlyname="Bearer Token Authentication Credential Name" narrative="The name of the Bearer Token Authentication credential" expr="" /><input type="binary" name="File" friendlyname="File" narrative="The file collection to send in the Web API Request" expr="" /></inputs><outputs><output type="text" name="Response Content" friendlyname="Response Content" stage="" /><output type="text" name="HTTP Status Code" friendlyname="HTTP Status Code" stage="" /><output type="collection" name="Response Headers" friendlyname="Response Headers" stage="" /><output type="text" name="AI_Response" friendlyname="AI_Response" narrative="content of response" stage="AI_Response" /></outputs><onsuccess>c00688ab-dfeb-4fa8-9796-0b58932fcb13</onsuccess><resource object="OpenAI API" action="Completion" /></stage><stage stageid="92eb3437-5178-41e3-9ba2-c2af1053bec4" name="AI_Response" type="Data"><loginhibit onsuccess="true" /><display x="180" y="60" /><datatype>text</datatype><initialvalue /><private /><alwaysinit /></stage></process></process>
+        <credential id="b280f470-ef6c-4052-9408-bdfbe3580432" name="OpenAI API Key" xmlns="http://www.blueprism.co.uk/product/credential">
+            <description>API Key</description>
+            <credentialType>BearerToken</credentialType>
+            <members>
+                <process id="73c2b87b-d7bc-4b19-ad7a-035987374e69" />
+            </members>
+        </credential>
+        <webapiservice id="04131dc9-3b75-40dc-8b28-68059f79bdaa" name="OpenAI API" enabled="true" xmlns="http://www.blueprism.co.uk/product/webapiservice">
+            <configuration baseurl="https://api.openai.com/v1" xmlns="">
+                <actions>
+                    <action id="103" name="Completion" enabled="true" enableRequestOutputParameter="false" disableSendingOfRequest="false">
+                        <description><![CDATA[]]></description>
+                        <request httpmethod="POST" urlpath="/chat/completions">
+                            <headers></headers>
+                            <bodycontent type="1">
+                                <template><![CDATA[{
+  "model": "gpt-4-turbo",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant."
+    },
+    {
+      "role": "user",
+      "content": "[Prompt]"
+    }
+  ]
+}]]></template>
+                            </bodycontent>
+                        </request>
+                        <parameters>
+                            <actionparameter name="Prompt" expose="true" datatype="64">
+                                <initialvalue><![CDATA[]]></initialvalue>
+                                <description><![CDATA[]]></description>
+                            </actionparameter>
+                        </parameters>
+                        <outputparameters>
+                            <parameters>
+                                <customoutputparameter type="JsonPath" name="AI_Response" description="content of response" path="$.choices[0].message.content" datatype="text" />
+                            </parameters>
+                            <code><![CDATA[]]></code>
+                        </outputparameters>
+                    </action>
+                </actions>
+                <commonparameters></commonparameters>
+                <commonheaders>
+                    <httpheader name="Content-Type" value="application/json" />
+                </commonheaders>
+                <commonauthentications>
+                    <authentication type="3">
+                        <credential credentialname="OpenAI API Key" exposetoprocess="true" inputparametername="Bearer Token Authentication Credential Name" />
+                    </authentication>
+                </commonauthentications>
+                <commoncode>
+                    <codeproperties code="" language="visualbasic">
+                        <namespaces>
+                            <namespace>System</namespace>
+                            <namespace>System.Drawing</namespace>
+                            <namespace>System.Data</namespace>
+                        </namespaces>
+                        <references>
+                            <reference>System.dll</reference>
+                            <reference>System.Data.dll</reference>
+                            <reference>System.Xml.dll</reference>
+                            <reference>System.Drawing.dll</reference>
+                        </references>
+                    </codeproperties>
+                </commoncode>
+                <configurationsettings>
+                    <configurationsettings requesttimeout="40" authserverrequesttimeout="10" />
+                </configurationsettings>
+            </configuration>
+        </webapiservice>
+        <process-group id="68c70c10-7471-4967-8ea9-f73252b36521" name="Default" isDefaultGroup="True" xmlns="http://www.blueprism.co.uk/product/process-group">
+            <members>
+                <process id="73c2b87b-d7bc-4b19-ad7a-035987374e69" />
+            </members>
+        </process-group>
+    </bpr:contents>
+</bpr:release>
