@@ -3,6 +3,15 @@
 
 ## 🔧 Blue Prism – OpenAI GPT API Integration Guide
 
+ 
+### 🚀 Quick Start Option
+
+If you don’t want to manually go through the integration steps, you can **simply download and import the Release file** from this repository.
+
+👉 [Click here to view the full setup guide](./BluePrism-OpenAI-Setup.md)
+
+---
+
 This guide walks you through the step-by-step process of integrating OpenAI's GPT model (e.g., GPT-4-turbo) with Blue Prism using Web API Services. You’ll learn how to configure credentials, set up API headers, authentication, request/response mapping, and test the integration using a simple process.
 
 ---
