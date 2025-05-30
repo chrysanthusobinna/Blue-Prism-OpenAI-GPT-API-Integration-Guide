@@ -242,11 +242,11 @@ You’ve successfully integrated the **OpenAI GPT API** into **Blue Prism** and 
 
 ### 🙋‍♂️ About the Author
 
-**Chrysanthus Obinna Chiagwah**
-Developer | AI & Automation Enthusiast
-📍 United Kingdom
-🔗 [LinkedIn Profile](https://www.linkedin.com/in/chrysanthus-obinna)
-🌐 [Portfolio Website](https://www.chrys-online.com)
+**Chrysanthus Obinna Chiagwah**  
+Developer \| AI & Automation Enthusiast  
+📍 United Kingdom  
+🔗 [LinkedIn Profile](https://www.linkedin.com/in/chrysanthus-obinna)  
+🌐 [Portfolio Website](https://www.chrys-online.com)  
 
 ---
 
