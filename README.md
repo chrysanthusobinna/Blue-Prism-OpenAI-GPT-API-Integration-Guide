@@ -1,9 +1,33 @@
+
+---
+
 ## 🔧 Blue Prism – OpenAI GPT API Integration Guide
+
+This guide walks you through the step-by-step process of integrating OpenAI's GPT model (e.g., GPT-4-turbo) with Blue Prism using Web API Services. You’ll learn how to configure credentials, set up API headers, authentication, request/response mapping, and test the integration using a simple process.
+
+---
+
+### ✅ Prerequisites
+
+Before you begin, ensure you have the following:
+
+* A valid **OpenAI API key**
+  👉 You can generate one by logging into your OpenAI account at [https://platform.openai.com/account/api-keys](https://platform.openai.com/account/api-keys)
+
+* **Sufficient usage credits or tokens** in your OpenAI account
+
+  > 🔔 *Note: The API will not respond successfully if your OpenAI account has no remaining credits or quota.*
+
+* Blue Prism version **7.3 or later**
+
+---
 
 ### 1. Launch Blue Prism
 
 * Open the **Blue Prism** application.
 * Click the **System** tab from the top menu bar.
+
+![Launch System Tab](documentation/system-tab.png)
 
 ---
 
@@ -24,6 +48,8 @@
    * Optionally, allow access under the **Processes (legacy)** and **Resources (legacy)** tabs.
 5. Click **OK** to save.
 
+![Credential Configuration](documentation/credential-settings.png)
+
 ---
 
 ### 3. Add a New Web API Service
@@ -34,6 +60,11 @@
 
    * **Name**: `OpenAI API`
    * **Base URL**: `https://api.openai.com/v1`
+   * Click **Advanced Settings** and set:
+
+     * **HTTP request connection timeout**: `40` seconds (important for longer GPT responses)
+
+![Add API Service](documentation/add-api-service.png)
 
 ---
 
@@ -42,10 +73,11 @@
 1. In the left-hand tree, click **Common Headers**.
 2. Add the following headers:
 
-   * **Name**: `Authorization`
-     **Value**: Leave blank (it will be handled via the credential).
    * **Name**: `Content-Type`
      **Value**: `application/json`
+
+
+![Common Headers](documentation/common-headers.png)
 
 ---
 
@@ -57,7 +89,9 @@
    * **Authentication Type**: `Bearer Token`
    * **Credential**: Select `OpenAI API Key`
    * Leave **Expose to process** unchecked
-3. Click **OK**.
+
+![Common Authentication](documentation/authentication.png)
+
 
 ---
 
@@ -65,6 +99,8 @@
 
 1. Under **Actions**, click **Add Action**.
 2. Rename the action to something meaningful (e.g., `Completion`).
+
+![Add Action](documentation/add-action.png)
 
 ---
 
@@ -78,7 +114,8 @@
    * **Data Type**: `Text`
    * **Initial Value**: Leave blank
    * **Expose**: ✅ Checked
-3. Click **OK**.
+
+![Add Parameter](documentation/parameters.png)
 
 ---
 
@@ -107,6 +144,21 @@
 }
 ```
 
+#### 🛠️ Customization Tips:
+
+* **Model**: You can replace `"gpt-4-turbo"` with any other supported model for chat completions, such as `"gpt-3.5-turbo"` if cost or availability is a concern.
+  Example:
+  `"model": "gpt-3.5-turbo"`
+
+* **System Prompt**: Adjust the `"content"` field under `"role": "system"` to guide the AI's behavior to match your use case.
+  Examples:
+
+  * `"You are a helpful assistant."` (default, general purpose)
+  * `"You are an IT support bot for Blue Prism users."`
+  * `"You are a legal advisor summarizing contracts in plain English."`
+  
+![Set Request Details](documentation/set-request.png)
+
 ---
 
 ### 9. Set Response Mapping
@@ -119,8 +171,9 @@
    * **Data Type**: `Text`
    * **Method**: `Json Path`
    * **Json Path**: `$.choices[0].message.content`
-3. (Optional) Click **Check Code** to validate.
-4. Click **OK**.
+3. Click **OK**.
+
+![Set Response Mapping](documentation/response-mapping.png)
 
 ---
 
@@ -137,37 +190,46 @@
 
 ### 2. Add a Data Item
 
-1. Right-click the canvas → **Insert Data**.
-2. Set:
+1. From the left-side panel, **drag the "Data Item"** icon onto the canvas.
+2. Double-click the new data item to configure it:
 
    * **Name**: `Prompt`
    * **Type**: `Text`
    * **Initial Value**: `Explain low-code technology`
-3. Click **OK**.
+3. Click **OK** to save.
+4. **Repeat step 1 to add another Data Item**, then configure it as follows:
+
+   * **Name**: `AI_Response`
+   * **Type**: `Text`
+   * **Initial Value**: *(leave blank)*
+5. Click **OK** to save.
 
 ---
 
 ### 3. Insert an Action Stage
 
-1. Right-click canvas → **Insert Action**.
-2. Configure:
+1. From the left-side panel, **drag the “Action” stage** onto the canvas.
+2. Double-click to configure:
 
    * **Name**: `Call OpenAI`
-   * **Business Object**: `Chat gbt Completion API`
+   * **Business Object**: `OpenAI API`
    * **Action**: `Completion`
-3. Go to **Inputs**:
+3. Go to the **Inputs** tab:
 
    * Assign `[Prompt]` to the **Prompt** parameter.
-4. Go to **Outputs**:
+4. Go to the **Outputs** tab:
 
-   * Create a new data item `GPT_Response` and assign it to output `content`.
-
+   * Create a new data item called `AI_Response`
+   * Map the **`content`** output to `AI_Response`
+5. Click **OK**.
 ---
 
 ### 4. Link the Flow
 
 * Connect the stages:
   **Start → Call OpenAI → End**
+
+![FlowDiagram](documentation/flow-diagram.png)
 
 ---
  
