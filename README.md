@@ -232,4 +232,22 @@ Before you begin, ensure you have the following:
 ![FlowDiagram](documentation/flow-diagram.png)
 
 ---
+
+## ✅ Conclusion
+
+Congratulations! 🎉
+You’ve successfully integrated the **OpenAI GPT API** into **Blue Prism** and tested it in **Process Studio**. With this setup, you can now build intelligent automations that leverage the power of natural language understanding and generation — all within your existing RPA workflows.
+
+---
+
+### 🙋‍♂️ About the Author
+
+**Chrysanthus Obinna Chiagwah**
+Developer | AI & Automation Enthusiast
+📍 United Kingdom
+🔗 [LinkedIn Profile](https://www.linkedin.com/in/chrysanthus-obinna)
+🌐 [Portfolio Website](https://www.chrys-online.com)
+
+---
+
  
